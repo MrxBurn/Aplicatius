@@ -1,0 +1,141 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Sprites/phony/Falling.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/phony/Jump.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/phony/Phony1.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/phony/Run_Phony-Sheet.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/phony/Phony2.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=6]
+[ext_resource path="res://Sprites/phony/Phony-Like.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/phony/Phony-Fire.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/phony/Phony-Heart.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/phony_bullets/Snapchat-Projectile-Sheet.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/phony_bullets/Heart_projectile-Sheet.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/phony_bullets/Like_Projectile-Sheet.png" type="Texture" id=12]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "jump",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "phony_like",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "phony_heart",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "falling",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "phony_fire",
+"speed": 1.0
+} ]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "transparent",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 4 ) ],
+"loop": true,
+"name": "fire",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 5 ) ],
+"loop": true,
+"name": "like",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": true,
+"name": "heart",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 6.33994, 11.725 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 0, 10 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( -0.213593, 1.66083 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.468231, -0.374577 )
+frames = SubResource( 3 )
+animation = "jump"
+playing = true
+
+[node name="Bullets" type="AnimatedSprite" parent="."]
+position = Vector2( 1.17056, -17.7924 )
+scale = Vector2( 0.4, 0.4 )
+frames = SubResource( 7 )
+animation = "like"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 8 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 9, 0 )
+
+[node name="area_hit" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_hit"]
+shape = SubResource( 9 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="area_entered" from="area_hit" to="." method="_on_area_hit_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
