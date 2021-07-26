@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Sprites/phony/Falling.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/phony/Jump.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Sprites/phony_bullets/Snapchat-Projectile-Sheet.png" type="Texture" id=10]
 [ext_resource path="res://Sprites/phony_bullets/Heart_projectile-Sheet.png" type="Texture" id=11]
 [ext_resource path="res://Sprites/phony_bullets/Like_Projectile-Sheet.png" type="Texture" id=12]
+[ext_resource path="res://Shake.gd" type="Script" id=13]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
@@ -33,11 +34,6 @@ animations = [ {
 "name": "run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "jump",
-"speed": 1.0
-}, {
 "frames": [ ExtResource( 7 ) ],
 "loop": true,
 "name": "phony_like",
@@ -56,6 +52,11 @@ animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "phony_fire",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "jump",
 "speed": 1.0
 } ]
 
@@ -101,7 +102,6 @@ extents = Vector2( 6.33994, 11.725 )
 extents = Vector2( 0, 10 )
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( -0.213593, 1.66083 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
@@ -122,8 +122,14 @@ animation = "like"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 8 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera_Shake" type="Camera2D" parent="."]
+offset = Vector2( 1, 1 )
 current = true
+script = ExtResource( 13 )
+
+[node name="ShakeTimer" type="Timer" parent="Camera_Shake"]
+
+[node name="Tween" type="Tween" parent="Camera_Shake"]
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 9, 0 )
@@ -137,5 +143,6 @@ shape = SubResource( 9 )
 wait_time = 3.0
 autostart = true
 
+[connection signal="timeout" from="Camera_Shake/ShakeTimer" to="Camera_Shake" method="_on_ShakeTimer_timeout"]
 [connection signal="area_entered" from="area_hit" to="." method="_on_area_hit_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
