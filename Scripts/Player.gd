@@ -120,7 +120,7 @@ func _on_area_hit_area_entered(area):
 	if health == 0:
 		queue_free()
 	
-
+#New code pushed to git
 
 func _on_Timer_timeout():
 	$Bullets.play("transparent")
