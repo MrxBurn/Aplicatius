@@ -34,14 +34,19 @@ animations = [ {
 "name": "run",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
-"loop": true,
-"name": "phony_like",
-"speed": 1.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "phony_heart",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "jump",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "phony_like",
 "speed": 1.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -52,11 +57,6 @@ animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "phony_fire",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "jump",
 "speed": 1.0
 } ]
 

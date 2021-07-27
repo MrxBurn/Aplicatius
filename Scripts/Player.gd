@@ -9,7 +9,7 @@ var BULLET = preload("res://bullet_scenes/like_bullet.tscn")
 
 var UP = Vector2(0, -1)
 
-var health = 5
+var health = 10
 
 var motion = Vector2.ZERO
 
