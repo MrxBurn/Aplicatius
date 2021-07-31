@@ -117,7 +117,7 @@ func _on_area_hit_area_entered(area):
 		area.get_parent().queue_free()
 		
 		health -= 1
-		Globals.camera.shake(60, 0.3, 200)
+		Globals.camera.shake(200, 0.3, 200)
 	print(health)
 	if health == 0:
 		queue_free()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Run_Phony-Sheet.png-257a7856daa139d7259ae48dd2b2a24f.stex"
+path="res://.import/FallingV2.png-fe1dcc18aeabb3a785cf06c5ee959cd4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/phony/Run_Phony-Sheet.png"
-dest_files=[ "res://.import/Run_Phony-Sheet.png-257a7856daa139d7259ae48dd2b2a24f.stex" ]
+source_file="res://Sprites/phony/FallingV2.png"
+dest_files=[ "res://.import/FallingV2.png-fe1dcc18aeabb3a785cf06c5ee959cd4.stex" ]
 
 [params]
 
