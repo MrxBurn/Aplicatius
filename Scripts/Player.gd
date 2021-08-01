@@ -14,8 +14,10 @@ var health = 10
 var motion = Vector2.ZERO
 
 var on_ground = false
+var is_dead = false
 
 onready var animation = get_node("AnimatedSprite")
+
 
 
 
@@ -46,70 +48,78 @@ func _process(delta):
 func _physics_process(delta):
 	
 
-	
-	motion.y += GRAVITY
-	
-	if motion.y > MAXFALLSPEED:
-		motion.y = MAXFALLSPEED
-
-	
-	#Character movement and animation
-	if Input.is_action_pressed("right"):
-		motion.x = MOVESPEED
-		$AnimatedSprite.play("run")
-		$AnimatedSprite.flip_h = false
-		on_ground = true
-	
-	elif Input.is_action_pressed("left"):
-		motion.x = -MOVESPEED
-		$AnimatedSprite.play("run")
-		$AnimatedSprite.flip_h = true
-		on_ground = true
-	else:
-		motion.x = 0
+	if is_dead == false:
+		motion.y += GRAVITY
 		
-		if is_on_floor() and on_ground:
-			$AnimatedSprite.play("idle")
+		if motion.y > MAXFALLSPEED:
+			motion.y = MAXFALLSPEED
 
-	if Input.is_action_just_pressed("jump"):
-		motion.y = -JUMPFORCE
-		on_ground = false
 		
-	# Check if the player is on floor
-	# Else make jump animation and fall animation
-	if is_on_floor():
-		on_ground = true
-	else:
-		on_ground = false
-		if motion.y < 0:
-			$AnimatedSprite.play("jump")
+		#Character movement and animation
+		if Input.is_action_pressed("right"):
+			motion.x = MOVESPEED
+			$AnimatedSprite.play("run")
+			$AnimatedSprite.flip_h = false
+			on_ground = true
+		
+		elif Input.is_action_pressed("left"):
+			motion.x = -MOVESPEED
+			$AnimatedSprite.play("run")
+			$AnimatedSprite.flip_h = true
+			on_ground = true
+		else:
+			motion.x = 0
+			
+			if is_on_floor() and on_ground:
+				$AnimatedSprite.play("idle")
+
+		if Input.is_action_just_pressed("jump"):
+			motion.y = -JUMPFORCE
 			on_ground = false
-		elif !on_ground:
-			$AnimatedSprite.play("falling")
-	
-	
-	# Weapon changing animation and instantiating the correct bullet
-	if Input.is_action_just_pressed("like"):
-		BULLET = preload("res://bullet_scenes/like_bullet.tscn")
+			
+		# Check if the player is on floor
+		# Else make jump animation and fall animation
+		if is_on_floor():
+			on_ground = true
+		else:
+			on_ground = false
+			if motion.y < 0:
+				$AnimatedSprite.play("jump")
+				on_ground = false
+			elif !on_ground:
+				$AnimatedSprite.play("falling")
 		
-		$Bullets.play("like")
 		
+		# Weapon changing animation and instantiating the correct bullet
+		if Input.is_action_just_pressed("like"):
+			BULLET = preload("res://bullet_scenes/like_bullet.tscn")
+			
+			$Bullets.play("like")
+			
+			
+				
+		if Input.is_action_just_pressed("heart"):
+			BULLET = preload("res://bullet_scenes/heart_bullet.tscn")
+			$Bullets.play("heart")
+		
+		if Input.is_action_just_pressed("fire"):
+			BULLET = preload("res://bullet_scenes/fire_bullet.tscn")
+			$Bullets.play("fire")
+			
+
 		
 			
-	if Input.is_action_just_pressed("heart"):
-		BULLET = preload("res://bullet_scenes/heart_bullet.tscn")
-		$Bullets.play("heart")
-	
-	if Input.is_action_just_pressed("fire"):
-		BULLET = preload("res://bullet_scenes/fire_bullet.tscn")
-		$Bullets.play("fire")
+			
 		
-
+		move_and_slide(motion, UP)
 	
-		
-		
 	
-	move_and_slide(motion, UP)
+func dead():
+	is_dead = true
+	$AnimatedSprite.play("death")
+	motion = Vector2(0,0)
+	$CollisionShape2D.disabled = true
+	$DieTimer.start()
 	
 # Enemy kills the player part
 func _on_area_hit_area_entered(area):
@@ -118,11 +128,17 @@ func _on_area_hit_area_entered(area):
 		
 		health -= 1
 		Globals.camera.shake(200, 0.3, 200)
-	print(health)
+	
+	
 	if health == 0:
-		queue_free()
+		dead()
 	
 #New code pushed to git
 
 func _on_Timer_timeout():
 	$Bullets.play("transparent")
+
+
+
+func _on_DieTimer_timeout():
+	queue_free()

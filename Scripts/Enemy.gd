@@ -1,12 +1,15 @@
 extends KinematicBody2D
 
 onready var BULLET_SCENE = preload("res://Bullet.tscn")
+onready var player_main = get_parent().get_node("Player")
 
 var player = null
 var move = Vector2.ZERO
 var speed = 1
 
 var health = 3
+
+var isPlayerDead = false
 
 
 func _physics_process(delta):
@@ -29,18 +32,23 @@ func _physics_process(delta):
 	move = move.normalized()
 	move_and_collide(move)
 
+	
+	
 func _on_Area2D_body_entered(body):
 	if body != self:
 		player = body
-
-
+		
 func _on_Area2D_body_exited(body):
 	player = null
-
+	
 
 func _on_Timer_timeout():
-	if player != null:
+	if player != null and !isPlayerDead:
 		fire()
+		
+		if player_main.health <= 0:
+			player = null
+			isPlayerDead = true
 	
 	
 func fire():
