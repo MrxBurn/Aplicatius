@@ -1,7 +1,10 @@
 extends KinematicBody2D
 
+signal grounded_updated(is_grounded)
+
+
 const GRAVITY = 10
-const MOVESPEED = 100
+const MOVESPEED = 110
 const JUMPFORCE = 200
 const MAXFALLSPEED = 200
 
@@ -15,6 +18,7 @@ var motion = Vector2.ZERO
 
 var on_ground = false
 var is_dead = false
+
 
 onready var animation = get_node("AnimatedSprite")
 
@@ -112,8 +116,7 @@ func _physics_process(delta):
 			
 		
 		move_and_slide(motion, UP)
-	
-	
+
 func dead():
 	is_dead = true
 	$AnimatedSprite.play("death")

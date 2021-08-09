@@ -11,6 +11,7 @@ func _process(delta):
 	if !has_died:
 		if player.health == 10 :
 			healthBar.value = 100
+			healthBar.tint_progress = Color.chartreuse
 		
 	
 		elif player.health == 8 :

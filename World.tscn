@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Sprites/Health_Border.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sprites/Health_Content.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/Health_Background.png" type="Texture" id=5]
 [ext_resource path="res://HUD.gd" type="Script" id=6]
+[ext_resource path="res://Charger.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/Flat Night 2 BG.png" type="Texture" id=9]
 
@@ -569,6 +570,10 @@ value = 41.0
 texture_under = ExtResource( 5 )
 texture_over = ExtResource( 2 )
 texture_progress = ExtResource( 4 )
+tint_progress = Color( 0.87451, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Charger" parent="." instance=ExtResource( 7 )]
+position = Vector2( 604.302, 146.609 )
