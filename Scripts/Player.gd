@@ -77,7 +77,7 @@ func _physics_process(delta):
 			if is_on_floor() and on_ground:
 				$AnimatedSprite.play("idle")
 
-		if Input.is_action_just_pressed("jump"):
+		if Input.is_action_just_pressed("jump") and is_on_floor():
 			motion.y = -JUMPFORCE
 			on_ground = false
 			
