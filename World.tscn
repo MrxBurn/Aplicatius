@@ -8,7 +8,7 @@
 [ext_resource path="res://HUD.gd" type="Script" id=6]
 [ext_resource path="res://Charger.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemy.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Sprites/Flat Night 2 BG.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/cyberpunk-street.png" type="Texture" id=9]
 [ext_resource path="res://Camera_Player.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -563,7 +563,7 @@ motion_mirroring = Vector2( 470, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 0.667465, -84.672 )
-scale = Vector2( 0.38125, 0.355556 )
+scale = Vector2( 0.778507, 1.26912 )
 texture = ExtResource( 9 )
 centered = false
 

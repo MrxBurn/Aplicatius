@@ -42,6 +42,14 @@ region = Rect2( 160, 0, 32, 32 )
 atlas = ExtResource( 14 )
 region = Rect2( 192, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=8]
 flags = 1
 atlas = ExtResource( 4 )
@@ -92,14 +100,6 @@ flags = 1
 atlas = ExtResource( 4 )
 region = Rect2( 288, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="SpriteFrames" id=20]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 5 ) ],
@@ -112,24 +112,14 @@ animations = [ {
 "name": "death",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ) ],
+"frames": [ SubResource( 19 ) ],
 "loop": true,
-"name": "phony_like",
+"name": "falling",
 "speed": 1.0
-}, {
-"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
-"loop": true,
-"name": "run",
-"speed": 17.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "phony_heart",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "phony_fire",
 "speed": 1.0
 }, {
 "frames": [ SubResource( 18 ) ],
@@ -137,9 +127,19 @@ animations = [ {
 "name": "jump",
 "speed": 1.0
 }, {
-"frames": [ SubResource( 19 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
-"name": "falling",
+"name": "run",
+"speed": 17.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "phony_fire",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "phony_like",
 "speed": 1.0
 } ]
 
@@ -147,12 +147,12 @@ animations = [ {
 atlas = ExtResource( 10 )
 region = Rect2( 0, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 11 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="SpriteFrames" id=24]
@@ -167,14 +167,14 @@ animations = [ {
 "name": "fire",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 22 ) ],
-"loop": true,
-"name": "heart",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "like",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 22 ) ],
+"loop": true,
+"name": "heart",
 "speed": 5.0
 } ]
 
@@ -221,6 +221,10 @@ autostart = true
 
 [node name="DieTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

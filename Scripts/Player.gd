@@ -22,6 +22,11 @@ var is_dead = false
 
 onready var animation = get_node("AnimatedSprite")
 
+#Shooting cooldwon
+#Reference to ShootCooldown node
+onready var shootCoolDown = $ShootCooldown
+
+export var fireDelay: float = 0.1
 
 
 
@@ -35,12 +40,16 @@ func _process(delta):
 		if sign($Position2D.position.x) == 1:
 			$Position2D.position.x *= -1
 		
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_just_pressed("shoot") and shootCoolDown.is_stopped():
 		var like = BULLET.instance()
 		if sign($Position2D.position.x) == 1:
 			like.set_bullet_direction(1)
 		else:
 			like.set_bullet_direction(-1)
+		
+		
+		#start cooldown timer
+		shootCoolDown.start()
 			
 		get_parent().add_child(like)
 		like.position = $Position2D.global_position
@@ -50,6 +59,7 @@ func _process(delta):
 
 
 func _physics_process(delta):
+	
 	
 
 	if is_dead == false:
@@ -95,26 +105,22 @@ func _physics_process(delta):
 		
 		
 		# Weapon changing animation and instantiating the correct bullet
-		if Input.is_action_just_pressed("like"):
+		if Input.is_action_pressed("like"):
 			BULLET = preload("res://bullet_scenes/like_bullet.tscn")
 			
 			$Bullets.play("like")
-			
-			
-				
-		if Input.is_action_just_pressed("heart"):
+	
+		if Input.is_action_pressed("heart") :
 			BULLET = preload("res://bullet_scenes/heart_bullet.tscn")
 			$Bullets.play("heart")
+			
+			
 		
-		if Input.is_action_just_pressed("fire"):
+		if Input.is_action_pressed("fire"):
 			BULLET = preload("res://bullet_scenes/fire_bullet.tscn")
 			$Bullets.play("fire")
 			
-
-		
 			
-			
-		
 		move_and_slide(motion, UP)
 
 func dead():

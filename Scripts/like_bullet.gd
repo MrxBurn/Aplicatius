@@ -6,6 +6,8 @@ var direction = 1
 
 
 
+
+
 func _ready():
 	pass # Replace with function body.
 
@@ -20,7 +22,7 @@ func set_bullet_direction(dir):
 func _physics_process(delta):
 	velocity.x = SPEED * delta * direction
 	translate(velocity)
-	$AnimatedSprite.play("fire")
+	
 
 
 func _on_VisibilityNotifier2D_screen_exited():
